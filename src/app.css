@@ -1,0 +1,20 @@
+.my-info {
+    border-collapse: collapse;
+}
+.my-info td{
+    /*add some padding to space it out if you want*/
+    padding: 0 3px;
+}
+.bottom-border { border-bottom: 2px solid black; }
+h1 {
+    color: rgb(0, 112, 210);
+}
+p {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    color: rgb(62, 62, 60);
+}
+.app {
+    background-color: #fafaf9;
+    height: 100vh;
+    overflow: scroll;
+}

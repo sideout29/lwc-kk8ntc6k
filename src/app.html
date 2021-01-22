@@ -1,0 +1,173 @@
+<template>
+    <div if:true={headerRec}>
+        <lightning-card icon-name="standard:opportunity" title={headerRec.title}>
+
+            <div class="slds-m-left_small">
+                <span class="slds-m-right_medium">Effective Date: {headerRec.effDateString}</span>
+                <span class="slds-m-right_medium">Validation Date: {headerRec.valDateString}</span>
+                <span>Overall Status: <span style={headerRec.statusStyle}
+                        class={headerRec.statusClass}>{headerRec.statusText}</span>
+                    <lightning-icon class='slds-m-left_small' size="x-Small" icon-name={headerRec.statusIcon}
+                        alternative-text="Approved"></lightning-icon>
+                </span>
+            </div>
+
+            <div class="slds-m-left_x-large slds-m-right_x-large slds-p-top_large slds-p-bottom_large">
+                <span class="slds-text-heading_medium slds-p-bottom_small">Agent and Agency Validation</span>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Product Line">Product Line</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Member">Member</div>
+                            </th>
+                            <template if:true={isLargeDisplay}>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Role">SAN</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Role">Role</div>
+                                </th>
+                            </template>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Status">Status</div>
+                            </th>
+                            <template if:true={isLargeDisplay}>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Errors">Errors</div>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={agencyList} for:item="member" for:index="SAN">
+                            <tr key={member.SAN} if:true={member.newProduct} style='background-color:grey;'>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <template if:true={isLargeDisplay}>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </template>
+                                </tr>
+                            <tr key={member.SAN} class="slds-hint-parent">
+                                <th data-label="Product Line" scope="row">
+                                    <div class="slds-truncate" title="Medical">
+                                        {member.productLineDesc}
+                                    </div>
+                                </th>
+                                <td data-label="Member">
+                                    <div class="slds-truncate" title="Member">
+                                        <a href="javascript:void(0);" tabindex="-1">{member.memberName}</a>
+                                    </div>
+                                </td>
+                                <template if:true={isLargeDisplay}>
+
+                                    <td data-label="SAN">
+                                        <div class="slds-truncate" title="SAN">{member.SAN}</div>
+                                    </td>
+                                    <td data-label="Role">
+                                        <div class="slds-truncate" title="Role">{member.role}</div>
+                                    </td>
+                                </template>
+                                    <td data-label="Validation">
+                                    <div style={member.style} class={member.class} title="Yes">
+                                        {member.status}<lightning-icon class='slds-m-left_small' size="x-Small"
+                                            icon-name={member.icon} alternative-text="Approved"></lightning-icon>
+                                    </div>
+                                </td>
+                                <template if:true={isLargeDisplay}>
+                                    <td data-label="Errors">
+                                    <div class="slds-truncate" title={member.error}>{member.error}</div>
+                                    </td>
+                                </template>
+                                </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class={divClass}>
+                <span class="slds-text-heading_medium slds-p-bottom_small">Sales Team Validation</span>
+                <table class="my-info slds-table slds-table--bordered slds-table--cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Product Line">Product Line</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Member">Member</div>
+                            </th>
+                            <template if:true={isLargeDisplay}>
+
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="SAN">SAN</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Role">Role</div>
+                                </th>
+                            </template>
+                            <th class="" scope="col">
+                            <div class="slds-truncate" title="Status">Status</div>
+                            </th>
+                            <template if:true={isLargeDisplay}>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Errors">Errors</div>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={memberList} for:item="member" for:index="SAN">
+                            <tr height="10%" key={member.SAN} if:true={member.newProduct} style='background-color:grey;'>
+                                <td class="info-highlight bottom-border"></td>
+                                <td class="info-highlight bottom-border"></td>
+                                <td class="info-highlight bottom-border"></td>
+                                <template if:true={isLargeDisplay}>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </template>
+                            </tr>
+                            <tr key={member.SAN} class="slds-hint-parent">
+                                <th data-label="Product Line" scope="row">
+                                    <div class="slds-truncate" title="Medical">
+                                        {member.productLineDesc}
+                                    </div>
+                                </th>
+                                <td data-label="Member">
+                                    <div class="slds-truncate" title="Member">
+                                        <a href="javascript:void(0);" tabindex="-1">{member.memberName}</a>
+                                    </div>
+                                </td>
+                                <template if:true={isLargeDisplay}>
+
+                                    <td data-label="SAN">
+                                            <div class="slds-truncate" title="SAN">{member.SAN}</div>
+                                        </td>
+                                    <td data-label="Role">
+                                        <div class="slds-truncate" title="Role">{member.role}</div>
+                                    </td>
+                                </template>
+                                <td data-label="Validation">
+                                    <div style={member.style} class={member.class} title="Yes">
+                                        {member.status}<lightning-icon class='slds-m-left_small' size="x-Small"
+                                            icon-name={member.icon} alternative-text="Approved"></lightning-icon>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </div>
+    <div if:true={error}>
+            <lightning-card icon-name="standard:first_non_empty" title="Error Retrieving Solar Data">
+                {error}
+            </lightning-card>
+        </div>
+    </template>
